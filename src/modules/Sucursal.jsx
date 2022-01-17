@@ -1,7 +1,8 @@
 import React from 'react'
+import gisnetLogo from '../media/gisnetLogo.png'
 
 
-const Login = () => {
+const Sucursal = () => {
     //funciones de preferencia que sean flecha
     return (
         //es donde se regresan los elementos HTML 
@@ -9,14 +10,14 @@ const Login = () => {
         <header>
             <nav className="navbar navbar-dark bg-primary fixed-top d-flex">
                 <div className="container-fluid d-flex  align-items-end">
-                <img src="./media/gisnetLogo.png" alt="Logo de GISNET" width="50" height="50" className="d-inline-block align-text-top mr-1"/>
+                <img src={gisnetLogo.png} alt="Logo de GISNET" width="50" height="50" className="d-inline-block align-text-top mr-1" />
                 <h2 className="mr-auto  ml-2">e-Gestor</h2>     
                 </div>
             </nav>
         </header>
 
         <div className="container">
-  <h2>Registro de Sucursal</h2>
+        <center><h2>Registro de Sucursal</h2></center>
   <form className="form-horizontal">
     <div className="form-group">
       <label className="col-sm-2 control-label">Clave</label>
@@ -49,4 +50,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Sucursal
