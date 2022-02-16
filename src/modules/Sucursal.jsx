@@ -1,6 +1,5 @@
 import { MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow } from 'mdbreact';
 import React, { useState, useRef, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
 import Menu from './Menu';
 
 const Sucursal = () => {
@@ -80,7 +79,6 @@ const Sucursal = () => {
         setmunicipioEnvioState(e.target.value)
       }
 
-
     const agregarSucursal = async () =>{
         let telefonos=[telefonoState];
         const sucursal = {clave : claveState, nombre : nombreState, 
@@ -155,23 +153,23 @@ const agregarCodigoPostal = async () =>{
     <MDBContainer className='h-100 mt-5'>
             <MDBRow className='h-100 d-flex justify-content-center align-items-center ml-5'>
                 <MDBCol >
-                    <form >
-                     <label className="col-sm-2 control-label">Clave</label>
+                    <form >                     
                     <div className="grey-text">
-                        <MDBInput  icon="user" getValue={handleClave} type='text'/>
-                     <label className="col-sm-2 control-label">Nombre</label>
-                        <MDBInput  icon='user-alt' getValue={handleNombre} type='text'/>
-                    <label className="col-sm-2 control-label">Direccion</label>
-                    <label className="col-sm control-label">Clave</label>
-                        <MDBInput  icon='phone-alt'  getValue={handleClaveDireccion} type='text'/>  
-                    <label className="col-sm control-label">Código Postal</label>
+                    <MDBIcon icon="key" /><label className="col-sm-2 control-label">Clave</label>  
+                        <MDBInput   getValue={handleClave} type='text'/>
+                        <MDBIcon icon="user-alt" /><label className="col-sm-2 control-label">Nombre</label>
+                        <MDBInput   getValue={handleNombre} type='text'/>
+                    <MDBIcon icon="map-marked-alt" /><label className="col-sm-2 control-label">Direccion</label>
+                    <label className="col-sm control-label"><MDBIcon icon="key" /> Clave</label> 
+                        <MDBInput getValue={handleClaveDireccion} type='text'/>  
+                    <label className="col-sm control-label"><MDBIcon icon="location-arrow" /> Código Postal</label>
                         <MDBInput getValue={handlecodigoPostal} onBlur={agregarCodigoPostal} type='text'/>     
-                    <label className="col-sm-2 control-label">Calle</label>
-                        <MDBInput  icon='phone-alt'  getValue={handleCalle} type='text'/>  
-                    <label className="col-sm-2 control-label">Número exterior</label>
-                        <MDBInput  icon='phone-alt'  getValue={handlenumeroExt} type='text'/>  
-                    <label className="col-sm-2 control-label">Número interior</label>
-                        <MDBInput  icon='phone-alt'  getValue={handlenumeroInt} type='text'/> 
+                    <label className="col-sm-2 control-label"><MDBIcon icon="street-view" /> Calle</label>
+                        <MDBInput  getValue={handleCalle} type='text'/>  
+                    <label className="col-sm control-label"><MDBIcon icon="hashtag"/> Número exterior</label>
+                        <MDBInput  getValue={handlenumeroExt} type='text'/>  
+                    <label className="col-sm control-label"><MDBIcon icon="hashtag"/> Número interior</label>
+                        <MDBInput  getValue={handlenumeroInt} type='text'/> 
                     {
                      coloniaState.length>0?  
                    <> <label className="col-sm-2 control-label">Colonia</label>
@@ -192,9 +190,10 @@ const agregarCodigoPostal = async () =>{
                         </select>
                         </>
                         :<>
-                        <MDBIcon icon="spinner" />
+                        <MDBIcon icon="spinner"> Cargando ...</MDBIcon> 
                         </>
                     }
+                    <p/><p/>
                     <label className="col-sm-2 control-label">URL</label>
                         <MDBInput  icon='phone-alt'  getValue={handleUrl} type='text'/>  
                         <label className="col-sm-2 control-label">Teléfono</label>

@@ -69,10 +69,8 @@ const Login = () => {
             <MDBRow className='h-100 d-flex justify-content-center align-items-center ml-5'>
                 <MDBCol >
                     <form >
-                    
                     <label className="col-sm-2 control-label" >CP</label>
-                         <MDBInput getValue={handlecodigoPostal} onBlur={agregarCodigoPostal} type='text'/>
-                                                 
+                         <MDBInput getValue={handlecodigoPostal} onBlur={agregarCodigoPostal} type='text'/>                                                 
                     <label className="col-sm-2 control-label" >Estados</label>
                     <MDBInput   disabled={true} id="Estados" type='text'/>
                     <label className="col-sm-2 control-label" >Municipios</label>                        
@@ -82,7 +80,7 @@ const Login = () => {
                         <select className='custom-select mb-5' name="colonia" id="select-colonia">
                           <option value="">Elige una Colonia</option>
                         </select>
-                        <p></p>                       
+                        <p></p>                  
                         <div className="d-flex justify-content-center align-items-center flex-column mt-5 ">
                         <button type="button" onClick={agregarCodigoPostal} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"3rem"}}  >Agregar Sucursal</button>     
                     </div>
