@@ -1,4 +1,4 @@
-import { MDBCol, MDBContainer, MDBInput, MDBRow } from 'mdbreact';
+import { MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow } from 'mdbreact';
 import React, { useState, useRef, useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 import Menu from './Menu';
@@ -49,15 +49,51 @@ const Sucursal = () => {
     const handleUrl = (e) =>{
         setUrlState(e)
     }
+    const [codigoPostalState,setcodigoPostalState] = useState('');
+      const handlecodigoPostal = (e) =>  {
+        setcodigoPostalState(e)
+      }
+    const [coloniaState,setcoloniaState] = useState([]);
+    
+    const handlecolonia = (e) =>  {
+        setcoloniaState(e.target.value)
+      }
+      const [estadoState,setestadoState]=useState('')
+      const handleestado = (e) =>  {
+          setestadoState(e.target.value)
+        }
+      const [municipioState,setmunicipioState]=useState('')
+      const handlemunicipio = (e) =>  {
+          setmunicipioState(e.target.value)
+        }
 
-    const [coloniaState,setcoloniaState]=useState('')
-    const [estadoState,setestadoState]=useState('')
-    const [cpState,setcpState]=useState('')
-    const [municipioState,setmunicipioState]=useState('')
+      const [coloniaEnvio,setcoloniaEnvioState]=useState();
+      const handlecoloniaenvio = (e) =>  {
+        setcoloniaEnvioState(e.target.value)
+      }
+      const [estadoEnvio,setestadoEnvioState]=useState();
+      const handleestadoaenvio = (e) =>  {
+        setestadoEnvioState(e.target.value)
+      }
+    const [municipioEnvio,setmunicipioEnvioState]=useState();
+    const handlemunicipioenvio = (e) =>  {
+        setmunicipioEnvioState(e.target.value)
+      }
+
 
     const agregarSucursal = async () =>{
+        let telefonos=[telefonoState];
         const sucursal = {clave : claveState, nombre : nombreState, 
-                           telefono : null, ind_llamado : indllamadoState}
+                           direccion : 
+                            {
+                                clave: ClaveDireccionState, calle : CalleState,
+                                num_ext: numeroExtState, num_interior: numeroIntState,
+                                colonia : coloniaEnvio, estado : estadoEnvio,
+                                municipio : municipioEnvio, cp : codigoPostalState, 
+                                url : UrlState
+                            },
+                            telefono : telefonos, ind_llamado : indllamadoState,  
+                         }
         console.log(sucursal)
         const bodyJson = JSON.stringify(sucursal)
         console.log(bodyJson)
@@ -74,25 +110,63 @@ const Sucursal = () => {
         clearInterval(intervalRef.current)
         setred(true)
 }
-/*const obtenerColonia = async () =>{
+
+let  estado,municipio,colonia,selectColonia,selectestado,selectmunicipio;
+
+const agregarCodigoPostal = async () =>{
+    const codigopostal = { cp : codigoPostalState }
+   // console.log(codigopostal)
+    const bodyJson = JSON.stringify(codigopostal)
+    console.log(bodyJson)
     const response = await fetch('http://192.168.200.216:8084/gestor/api/getcolonia',{ 
-       // headers : { 'Content-Type': 'application/json' },
-        method: 'GET',
+        headers : { 'Content-Type': 'application/json' },
+        method: 'POST',
         mode: 'cors', // 
-        //body : bodyJson,
+        body : bodyJson,
         cache: 'default',
       })
-      
+    const responseJson = await response.json()
+    console.log(responseJson);
+    
+    estado = responseJson.map((estados) => {
+      return estados.estado
+    });
+   /* selectestado = `<option>Elige un estado</option>`;
+    selectestado += `<option>${estado[0]}</option>`;
+    document.getElementById('Estados').innerHTML = selectestado
+    console.log(estado[0])
+*/
+    municipio = responseJson.map((municipios) => {
+      return municipios.municipio
+    });
+   /* selectmunicipio = `<option>Elige un municipio</option>`;
+    selectmunicipio += `<option>${municipio[0]}</option>`;
+    document.getElementById('municipio').innerHTML =  selectmunicipio
+    
+    console.log(municipio[0])
+*/
+    colonia = responseJson.map((colonias) => {
+      return  colonias.nombre
+    });
+
+    setestadoState (estado);
+    setmunicipioState(municipio);
+    setcoloniaState(colonia);
+    /*
+    selectColonia = `<option>Elige una colonia</option>`;
+    for (let i = 0; i < colonia.length; i++) {
+      selectColonia += `<option>${colonia[i]}</option>`;
+    }
+    document.getElementById('select-colonia').innerHTML = selectColonia
+*/
+    clearInterval(intervalRef.current)
+    setred(true)
+
 }
-useEffect(() => {
-    fetch('http://192.168.200.216:8084/gestor/api/colonias')
-      .then((response) => {
-        return response.json()
-      })
-      .then((estado) => {
-        estado(estado)
-      })
-  }, [])*/
+//document.getElementById('Estados').value = estado[0]
+// document.getElementById('municipio').value =  municipio[0]
+//<MDBInput disabled={true}   id="Estados" getValue={setestadoState} onChange={handleestado} type='text'/>
+// <MDBInput disabled={true}  id="municipio"  onInputCapture={setmunicipioState} onChange={handlemunicipio} type='text'/> 
   return (
     <>
     <Menu/>
@@ -105,30 +179,47 @@ useEffect(() => {
                         <MDBInput  icon="user" getValue={handleClave} type='text'/>
                      <label className="col-sm-2 control-label">Nombre</label>
                         <MDBInput  icon='user-alt' getValue={handleNombre} type='text'/>
-                    <label className="col-sm-2 control-label">Teléfono</label>
-                        <MDBInput  icon='phone-alt' getValue={handleTelefono} type='number'/>
-                    <label className="col-sm-2 control-label">Ind_llamado</label>
-                        <MDBInput  icon='phone-alt' valueDefault={"1"} getValue={handleindllamado} type='text'/>  
                     <label className="col-sm-2 control-label">Direccion</label>
+                    <label className="col-sm control-label">Clave</label>
+                        <MDBInput  icon='phone-alt'  getValue={handleClaveDireccion} type='text'/>  
                     <label className="col-sm control-label">Código Postal</label>
-                        <MDBInput  icon='phone-alt'  getValue={""} type='text'/>      
-                    <label className="col-sm-2 control-label">Clave</label>
-                        <MDBInput  icon='phone-alt'  getValue={handleClaveDireccion} type='text'/>      
+                        <MDBInput getValue={handlecodigoPostal} onBlur={agregarCodigoPostal} type='text'/>     
                     <label className="col-sm-2 control-label">Calle</label>
                         <MDBInput  icon='phone-alt'  getValue={handleCalle} type='text'/>  
                     <label className="col-sm-2 control-label">Número exterior</label>
                         <MDBInput  icon='phone-alt'  getValue={handlenumeroExt} type='text'/>  
                     <label className="col-sm-2 control-label">Número interior</label>
-                        <MDBInput  icon='phone-alt'  getValue={handlenumeroInt} type='text'/>    
-                    <label className="col-sm-2 control-label">Colonia</label>
-                        <MDBInput  icon='phone-alt'  getValue={""} type='text'/>                 
+                        <MDBInput  icon='phone-alt'  getValue={handlenumeroInt} type='text'/> 
+                    {
+                     coloniaState.length>0?  
+                   <> <label className="col-sm-2 control-label">Colonia</label>
+                        <select className='custom-select mb-5'  name="colonia"  onChange={handlecoloniaenvio} id="select-colonia"> 
+                        {
+                        coloniaState.map((colonias) => {
+                            return (<option>{colonias}</option>)                         
+                        })
+                        }</select>
                     <label className="col-sm-2 control-label">Estado</label>
-                        <MDBInput  icon='phone-alt'  getValue={""} type='text'/>                 
+                        <select className='custom-select mb-5'  name="estado"  onChange={handleestadoaenvio} id="Estados">
+                        <option>Elige un estado</option>
+                        <option>{estadoState[0]}</option> </select> 
                     <label className="col-sm-2 control-label">Municipio</label>
-                        <MDBInput  icon='phone-alt'  getValue={""} type='text'/>                  
+                        <select className='custom-select mb-5'  name="municipio" onChange={handlemunicipioenvio} id="municipio">
+                        <option>Elige un municipio</option>
+                        <option>{municipioState[0]}</option>
+                        </select>
+                        </>
+                        :<>
+                        <MDBIcon icon="spinner" />
+                        </>
+                    }
                     <label className="col-sm-2 control-label">URL</label>
                         <MDBInput  icon='phone-alt'  getValue={handleUrl} type='text'/>  
-         
+                        <label className="col-sm-2 control-label">Teléfono</label>
+                        <MDBInput  icon='phone-alt' getValue={handleTelefono} type='number'/>
+                    <label className="col-sm-2 control-label">Ind_llamado</label>
+                        <MDBInput  icon='phone-alt' valueDefault={"1"} getValue={handleindllamado} type='text'/>  
+
                     <div className="d-flex justify-content-center align-items-center flex-column mt-5 ">
                         <button type="button" onClick={agregarSucursal} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"3rem"}}  >Agregar Sucursal</button>     
                     </div>
