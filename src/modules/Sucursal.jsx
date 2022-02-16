@@ -100,7 +100,7 @@ const Sucursal = () => {
         const response = await fetch('http://192.168.200.216:8084/gestor/api/addsucursal',{ 
             headers : { 'Content-Type': 'application/json' },
             method: 'POST',
-            mode: 'cors', // 
+            mode: 'cors', 
             body : bodyJson,
             cache: 'default',
           })
@@ -115,7 +115,7 @@ let  estado,municipio,colonia,selectColonia,selectestado,selectmunicipio;
 
 const agregarCodigoPostal = async () =>{
     const codigopostal = { cp : codigoPostalState }
-   // console.log(codigopostal)
+
     const bodyJson = JSON.stringify(codigopostal)
     console.log(bodyJson)
     const response = await fetch('http://192.168.200.216:8084/gestor/api/getcolonia',{ 
@@ -131,20 +131,11 @@ const agregarCodigoPostal = async () =>{
     estado = responseJson.map((estados) => {
       return estados.estado
     });
-   /* selectestado = `<option>Elige un estado</option>`;
-    selectestado += `<option>${estado[0]}</option>`;
-    document.getElementById('Estados').innerHTML = selectestado
-    console.log(estado[0])
-*/
+
     municipio = responseJson.map((municipios) => {
       return municipios.municipio
     });
-   /* selectmunicipio = `<option>Elige un municipio</option>`;
-    selectmunicipio += `<option>${municipio[0]}</option>`;
-    document.getElementById('municipio').innerHTML =  selectmunicipio
-    
-    console.log(municipio[0])
-*/
+
     colonia = responseJson.map((colonias) => {
       return  colonias.nombre
     });
@@ -152,21 +143,12 @@ const agregarCodigoPostal = async () =>{
     setestadoState (estado);
     setmunicipioState(municipio);
     setcoloniaState(colonia);
-    /*
-    selectColonia = `<option>Elige una colonia</option>`;
-    for (let i = 0; i < colonia.length; i++) {
-      selectColonia += `<option>${colonia[i]}</option>`;
-    }
-    document.getElementById('select-colonia').innerHTML = selectColonia
-*/
+
     clearInterval(intervalRef.current)
     setred(true)
 
 }
-//document.getElementById('Estados').value = estado[0]
-// document.getElementById('municipio').value =  municipio[0]
-//<MDBInput disabled={true}   id="Estados" getValue={setestadoState} onChange={handleestado} type='text'/>
-// <MDBInput disabled={true}  id="municipio"  onInputCapture={setmunicipioState} onChange={handlemunicipio} type='text'/> 
+
   return (
     <>
     <Menu/>
