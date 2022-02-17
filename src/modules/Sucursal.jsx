@@ -1,5 +1,6 @@
-import { MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow } from 'mdbreact';
+import { MDBBtn, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow } from 'mdbreact';
 import React, { useState, useRef, useEffect } from 'react';
+import {Spinner} from "reactstrap";
 import Menu from './Menu';
 
 const Sucursal = () => {
@@ -190,17 +191,22 @@ const agregarCodigoPostal = async () =>{
                         </select>
                         </>
                         :<>
-                        <MDBIcon icon="spinner"> Cargando ...</MDBIcon> 
+                        <div className="spinner-border" role="status"/>
+                        <label><h4>Cargando...</h4></label>
                         </>
                     }
                     <p/><p/>
-                    <label className="col-sm-2 control-label">URL</label>
-                        <MDBInput  icon='phone-alt'  getValue={handleUrl} type='text'/>  
-                        <label className="col-sm-2 control-label">Teléfono</label>
-                        <MDBInput  icon='phone-alt' getValue={handleTelefono} type='number'/>
-                    <label className="col-sm-2 control-label">Ind_llamado</label>
-                        <MDBInput  icon='phone-alt' valueDefault={"1"} getValue={handleindllamado} type='text'/>  
-
+                    <label className="col-sm-2 control-label"> <MDBIcon icon="link"/> URL</label>
+                        <MDBInput  getValue={handleUrl} type='text'/>  
+                        <label className="col-sm-2 control-label"><MDBIcon icon="phone-alt"/> Teléfono</label>
+                        <MDBInput   getValue={handleTelefono} type='number'/>
+                        <div>
+                        <button className='btn btn primary' id="agregarTelefono">Agregar número de telefóno +</button>                        
+                        </div>
+                        
+                        
+                    <label className="col-sm-2 control-label"><MDBIcon icon="hashtag"/> Ind_llamado</label>
+                        <MDBInput valueDefault={"1"} getValue={handleindllamado} type='text'/>  
                     <div className="d-flex justify-content-center align-items-center flex-column mt-5 ">
                         <button type="button" onClick={agregarSucursal} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"3rem"}}  >Agregar Sucursal</button>     
                     </div>
