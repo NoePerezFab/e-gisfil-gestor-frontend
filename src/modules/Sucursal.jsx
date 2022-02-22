@@ -1,6 +1,6 @@
-import { MDBBtn, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow } from 'mdbreact';
+import { MDBCloseIcon, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow} from 'mdbreact';
 import React, { useState, useRef, useEffect } from 'react';
-import {Spinner} from "reactstrap";
+import { MDBBtn } from 'mdb-react-ui-kit';
 import Menu from './Menu';
 
 const Sucursal = () => {
@@ -12,10 +12,7 @@ const Sucursal = () => {
     const handleNombre = (e) =>{
         setnombreState(e)
     }
-    const [telefonoState,settelefonoState]=useState('')
-    const handleTelefono = (e) =>{
-        settelefonoState(e)
-    }
+    
     const [indllamadoState,setindllamadoState]=useState(1)
     const handleindllamado = (e) =>{
         setindllamadoState(e)
@@ -81,7 +78,7 @@ const Sucursal = () => {
       }
 
     const agregarSucursal = async () =>{
-        let telefonos=[telefonoState];
+     
         const sucursal = {clave : claveState, nombre : nombreState, 
                            direccion : 
                             {
@@ -91,7 +88,7 @@ const Sucursal = () => {
                                 municipio : municipioEnvio, cp : codigoPostalState, 
                                 url : UrlState
                             },
-                            telefono : telefonos, ind_llamado : indllamadoState,  
+                            telefono : metadatos, ind_llamado : indllamadoState,  
                          }
         console.log(sucursal)
         const bodyJson = JSON.stringify(sucursal)
@@ -113,6 +110,7 @@ const Sucursal = () => {
 let  estado,municipio,colonia,selectColonia,selectestado,selectmunicipio;
 
 const agregarCodigoPostal = async () =>{
+    setspinnerState(true);
     const codigopostal = { cp : codigoPostalState }
 
     const bodyJson = JSON.stringify(codigopostal)
@@ -148,6 +146,27 @@ const agregarCodigoPostal = async () =>{
 
 }
 
+                        const [metadatos, setmetadatos] = useState([])
+                        const handleMetadatos = (e)=>{
+                            setmetadatos(e.metadatos)
+                        }
+
+                        const handleTelefonoMetadato =(e) =>{
+                            let telefonos=metadatos;
+                            telefonos[e.target.id]=e.target.value
+                            setmetadatos=telefonos;
+                        }
+                        
+                        const addMetadato = async (e)=>{
+                            e.preventDefault()
+                            const metadato=""
+                            setmetadatos([...metadatos,metadato])
+                        }                        
+                        let indice=-1;
+                
+        const [spinner,setspinnerState]=useState(false)
+
+
   return (
     <>
     <Menu/>
@@ -164,14 +183,8 @@ const agregarCodigoPostal = async () =>{
                     <label className="col-sm control-label"><MDBIcon icon="key" /> Clave</label> 
                         <MDBInput getValue={handleClaveDireccion} type='text'/>  
                     <label className="col-sm control-label"><MDBIcon icon="location-arrow" /> Código Postal</label>
-                        <MDBInput getValue={handlecodigoPostal} onBlur={agregarCodigoPostal} type='text'/>     
-                    <label className="col-sm-2 control-label"><MDBIcon icon="street-view" /> Calle</label>
-                        <MDBInput  getValue={handleCalle} type='text'/>  
-                    <label className="col-sm control-label"><MDBIcon icon="hashtag"/> Número exterior</label>
-                        <MDBInput  getValue={handlenumeroExt} type='text'/>  
-                    <label className="col-sm control-label"><MDBIcon icon="hashtag"/> Número interior</label>
-                        <MDBInput  getValue={handlenumeroInt} type='text'/> 
-                    {
+                        <MDBInput getValue={handlecodigoPostal} onBlur={agregarCodigoPostal} type='text'/> 
+                        {
                      coloniaState.length>0?  
                    <> <label className="col-sm-2 control-label">Colonia</label>
                         <select className='custom-select mb-5'  name="colonia"  onChange={handlecoloniaenvio} id="select-colonia"> 
@@ -190,22 +203,45 @@ const agregarCodigoPostal = async () =>{
                         <option>{municipioState[0]}</option>
                         </select>
                         </>
-                        :<>
+                        :
+                        spinner ?
+                        <>
                         <div className="spinner-border" role="status"/>
-                        <label><h4>Cargando...</h4></label>
-                        </>
+                        <label className="col-sm-2 control-label"><h4>Cargando</h4></label>                                              
+                        
+                        </>:<></>
                     }
-                    <p/><p/>
+                    <p/><p/>   
+                    <label className="col-sm-2 control-label"><MDBIcon icon="street-view" /> Calle</label>
+                        <MDBInput  getValue={handleCalle} type='text'/>  
+                    <label className="col-sm control-label"><MDBIcon icon="hashtag"/> Número exterior</label>
+                        <MDBInput  getValue={handlenumeroExt} type='text'/>  
+                    <label className="col-sm control-label"><MDBIcon icon="hashtag"/> Número interior</label>
+                        <MDBInput  getValue={handlenumeroInt} type='text'/> 
+                   
                     <label className="col-sm-2 control-label"> <MDBIcon icon="link"/> URL</label>
                         <MDBInput  getValue={handleUrl} type='text'/>  
-                        <label className="col-sm-2 control-label"><MDBIcon icon="phone-alt"/> Teléfono</label>
-                        <MDBInput   getValue={handleTelefono} type='number'/>
-                        <div>
-                        <button className='btn btn primary' id="agregarTelefono">Agregar número de telefóno +</button>                        
-                        </div>
+                    
+                        {
+                    
+                        metadatos.length>0 ? metadatos.map(()=>{
+                            indice=indice+1
+                            return (
+                                <>
+                                <label className="col-sm-2 control-label"><MDBIcon icon="phone-alt" /> Teléfono</label>
+                                <MDBInput  group type='text' validate error='wrong' required
+                                success='right' onInput={handleTelefonoMetadato} id={""+indice} />                    
+                                </>
+                            )
+                        }):<p></p>
+
+                        }
+                        <label className="col-sm control-label">
+                        <MDBBtn className='btn btn primary' onClick={addMetadato}><MDBIcon icon="plus"/> Agregar Teléfono</MDBBtn>
+                        </label>
                         
-                        
-                    <label className="col-sm-2 control-label"><MDBIcon icon="hashtag"/> Ind_llamado</label>
+
+                        <label className="col-sm-2 control-label"><MDBIcon icon="hashtag"/> Ind_llamado</label>
                         <MDBInput valueDefault={"1"} getValue={handleindllamado} type='text'/>  
                     <div className="d-flex justify-content-center align-items-center flex-column mt-5 ">
                         <button type="button" onClick={agregarSucursal} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"3rem"}}  >Agregar Sucursal</button>     

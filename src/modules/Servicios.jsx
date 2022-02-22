@@ -43,7 +43,7 @@ const Servicios = () => {
         console.log(servicio)
         const bodyJson = JSON.stringify(servicio)
         console.log(bodyJson)
-        const response = await fetch('http://192.168.200.216:8080/gestor/api/addservicio',{ 
+        const response = await fetch('http://192.168.200.216:8084/gestor/api/addservicio',{ 
             headers : { 'Content-Type': 'application/json' },
             method: 'POST',
             mode: 'cors', // 
@@ -107,4 +107,3 @@ const Servicios = () => {
 };
 
 export default Servicios;
-
