@@ -37,11 +37,11 @@ const Servicios = () => {
     }
 
     const handlePonderacion = (e) =>{
-        setponderacionState(parseInt(e.target.value))
+        setponderacionState(e)
     }
 
     const handleTiempo = (e) => {
-        settiempoState (parseInt(e.target.value))
+        settiempoState (e)
     }
     
      const agregarServicio = async () =>{
