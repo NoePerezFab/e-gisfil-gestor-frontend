@@ -1,4 +1,4 @@
-import { MDBCol, MDBContainer, MDBRow } from 'mdbreact';
+import { MDBCol, MDBContainer, MDBRow, MDBTabContent, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
 import React, { useState } from 'react';
 import Menu from './Menu';
 
@@ -25,31 +25,8 @@ const ServiciosSucursal = () => {
       }
       document.getElementById('select-estado').innerHTML = sucursal
     }
-    /* 
-    .then(response => {
-    /*
-      let element = document.getElementById('select-estado')
-      element.innerHTML= `
-      <option>${response.nombre}</option>
-      `;
-      console.log(response);
-    */
+    
 
-
-       /*
-      let listaSucursales= response.map((sucursal)=>{
-      console.log("Pruebas",sucursal.nombre);  
-        <option>{sucursal.nombre}</option>
-      } )
-      
-    });
-    */ 
- 
-  
-  const numbers = [1, 2, 3, 4, 5];
-  const listItems = numbers.map((number) =>
-  <option>{number}</option>
-  );
 
   
   return (
@@ -62,28 +39,29 @@ const ServiciosSucursal = () => {
                     <label className="col-sm-2 control-label" >Sucursales</label>
                          <select className='custom-select mb-5' name="estado" id="select-estado" >
                             <option value="">Elige tu Sucursal</option>
-                           
                         </select>
                         <p></p>
-                    <label className="col-sm-2 control-label" >Estados</label>
-                         <select className='custom-select mb-5' name="estado" id="select-estado" >
-                            <option value="">Elige un Estado</option>
-                            
-                        </select>
-                        <p></p>
-                    <label className="col-sm-2 control-label" >Municipios</label>
-                        <select className='custom-select mb-5' name="municipio" id="select-municipio">
-                          <option value="">Elige un Municipio</option>
-                          <option></option>
-                        </select>
-                        <p></p>
-                        <label className="col-sm-2 control-label" >Colonia</label>
-                        <select className='custom-select mb-5' name="colonia" id="select-colonia">
-                          <option value="">Elige una Colonia</option>
-                        </select>
-                        <p></p>
-                       
-                        
+                      <MDBTable>
+                        <MDBTableHead>
+                          <tr>
+                            <th scope='col'>Clave</th>
+                            <th scope='col'>Nombre</th>
+                            <th scope='col'>Prioridad</th>
+                            <th scope='col'>Servicio al cliente</th>
+                            <th scope='col'>Tipo de servicio</th>
+                          </tr>
+                        </MDBTableHead>
+                      
+                      <MDBTableBody>
+                      <tr>
+                       <th scope='row'>123456</th>
+                       <td>asdfaa</td>
+                       <td>1</td>
+                       <td>Si</td>
+                       <td>Caja</td>
+                      </tr>
+                      </MDBTableBody>
+                      </MDBTable>
                     </form>
                 </MDBCol>
             </MDBRow>

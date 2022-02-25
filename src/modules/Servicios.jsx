@@ -1,4 +1,4 @@
-import { MDBBtn, MDBCol, MDBContainer, MDBInput, MDBRow } from 'mdbreact';
+import { MDBBtn, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow } from 'mdbreact';
 import React, { useRef, useState } from 'react';
 import Menu from './Menu';
 
@@ -11,7 +11,8 @@ const Servicios = () => {
     const [prioridadState,setprioridadState]=useState('')
     const [servicioclienteState,setservicioclienteState]=useState('')
     const [tiposervicioState,settiposervicioState]=useState('')
-  
+    const [ponderacionState,setponderacionState]=useState()
+    const [tiempoState,settiempoState]=useState()
    
     const handleNombre = (e) =>{
         setnombreState(e)
@@ -35,11 +36,18 @@ const Servicios = () => {
         settiposervicioState(e.target.value)
     }
 
- 
+    const handlePonderacion = (e) =>{
+        setponderacionState(parseInt(e.target.value))
+    }
+
+    const handleTiempo = (e) => {
+        settiempoState (parseInt(e.target.value))
+    }
     
      const agregarServicio = async () =>{
         const servicio = { clave : claveState, nombre : nombreState, prioridad : prioridadState,
-                         tipo_servicio : tiposervicioState, servicio_cliente : servicioclienteState}
+                         tipo_servicio : tiposervicioState, servicio_cliente : servicioclienteState,
+                         ponderacion : ponderacionState, tiempo_maximo_espera : tiempoState}
         console.log(servicio)
         const bodyJson = JSON.stringify(servicio)
         console.log(bodyJson)
@@ -63,15 +71,15 @@ const Servicios = () => {
             <MDBRow className='h-100 d-flex justify-content-center align-items-center ml-5'>
                 <MDBCol >
                     <form >                    
-                     <label className="col-sm-2 control-label">Clave</label>
+                    <MDBIcon icon='key'/><label className="col-sm-2 control-label">Clave</label>
                     <div className="grey-text">
-                        <MDBInput  icon='user-check' getValue={handleClave}></MDBInput>
+                        <MDBInput   getValue={handleClave}></MDBInput>
                     </div>    
-                    <label className="col-sm-2 control-label">Nombre</label>
+                    <MDBIcon icon='user'/><label className="col-sm-2 control-label">Nombre</label>
                     <div className="grey-text">
-                        <MDBInput  icon="user-alt" getValue={handleNombre} type='text'></MDBInput>
+                        <MDBInput getValue={handleNombre} type='text'></MDBInput>
                     </div>        
-                        <label className="col-sm-2 control-label" type='number'>Prioridad</label>
+                    <MDBIcon icon='key'/>   <label className="col-sm-2 control-label" type='number'>Prioridad</label>
                     <div className="grey-text">
                     <select className='custom-select mb-5' onInput={setprioridadState} onChange={handleprioridad} >
                         <option value="">Selecciona una prioridad</option>
@@ -79,7 +87,7 @@ const Servicios = () => {
                         <option>2</option>
                     </select>
                     </div>     
-                    <label className="col-sm-2 control-label">Tipo de Servicio</label>
+                    <label className="col-sm-2 control-label"> <MDBIcon icon='file-alt'/> Tipo de Servicio</label>
                     <div className="grey-text">
                     <select  className='custom-select mb-5' onInput={settiposervicioState}  onChange={handletiposervicio} > 
                         <option value="">Selecciona un tipo de servicio</option>
@@ -87,7 +95,7 @@ const Servicios = () => {
                         <option>EJECUTIVO</option>
                     </select>
                     </div> 
-                    <label className="col-sm control-label">Servicio al cliente</label>
+                   <label className="col-sm control-label"> <MDBIcon icon='user-check'/> Servicio al cliente</label>
                     <div className="grey-text">
                     <select className='custom-select mb-5' onInput={setservicioclienteState}   onChange={handleserviciocliente} >
                         <option value="">¿El servicio es al cliente?</option>
@@ -95,6 +103,14 @@ const Servicios = () => {
                         <option>No</option>
                     </select>
                     </div>
+                    <label className="col-sm-2 control-label"> <MDBIcon icon='file-alt'/> Ponderación</label>
+                    <div className="grey-text">
+                        <MDBInput   type='number' min='1' max='100' getValue={handlePonderacion}></MDBInput>
+                    </div> 
+                    <label className="col-sm control-label"> <MDBIcon icon='clock'/> Tiempo máximo de espera</label>
+                    <div className="grey-text">
+                        <MDBInput   type='number' getValue={handleTiempo}></MDBInput>
+                    </div>     
                     <div className="d-flex justify-content-center align-items-center flex-column mt-5 ">
                         <button type="button" onClick={agregarServicio} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"3rem"}}  >Agregar Servicio</button>     
                     </div>
