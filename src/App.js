@@ -3,7 +3,7 @@ import Login from "./modules/Login";
 import Servicios from "./modules/Servicios";
 import ServiciosSucursal from "./modules/ServiciosSucursal";
 import Sucursal from "./modules/Sucursal";
-
+import ServiciosSucursalv2 from "./modules/ServiciosSucursalv2";
 
 function App() {
     return ( 
@@ -12,6 +12,7 @@ function App() {
         <Routes>
         <Route path="/" element={<Login/>}/>
         <Route path="/Login" element={<Login/>}/>
+          <Route path="/registrarsucursalv2" element={<ServiciosSucursalv2/>}/>
           <Route path="/registrarsucursal" element={<Sucursal/>}/>
           <Route path="/registrarservicio" element={<Servicios/>}/>
           <Route path="/registrarserviciosucursal" element={<ServiciosSucursal/>}/>

@@ -140,7 +140,7 @@ const agregarCodigoPostal = async () =>{
     setestadoState (estado);
     setmunicipioState(municipio);
     setcoloniaState(colonia);
-
+    console.log("sdfaf",coloniaEnvio)
     clearInterval(intervalRef.current)
     setred(true)
 
