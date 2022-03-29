@@ -5,6 +5,8 @@ import Menu from './Menu';
 
 function Mostrador({obtenerSucursales,sucursalesState,obtenerServicios,serviciosSucursalState}) {
 
+    
+
     const [claveState,setclaveState]=useState("")
     const handleClave = (e) =>{
         setclaveState(e)
@@ -22,6 +24,7 @@ function Mostrador({obtenerSucursales,sucursalesState,obtenerServicios,servicios
   const handleactivo = (e) =>{
       setactivoState(e.target.value)
       console.log(e.target.value)
+
   }
   const [serviciosScucursalState,setserviciosScucursalState]=useState("")
   const handleserviciosScucursal = (e) =>{
