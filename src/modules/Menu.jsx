@@ -28,7 +28,7 @@ const Menu = () => {
                 <Link to="/registrarserviciosucursal" className='nav-link'> Registro de Servicios a Sucursal</Link>
                 </li>
                 <li className='nav-item'>
-                <Link to="/registrarsucursalv2" className='nav-link'> Registro de Servicios a Sucursal v2</Link>
+                <Link to="/Mostrador" className='nav-link'> Registro de Mostradores</Link>
                 </li>
                 </ul>  
                 </div>
