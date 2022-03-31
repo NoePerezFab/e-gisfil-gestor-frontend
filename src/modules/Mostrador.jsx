@@ -37,7 +37,9 @@ function Mostrador({obtenerSucursales,sucursalesState,sucursalState, obtenerServ
 
       const agregarMostrador = async () => {
           console.log("sucursal elegida = ",sucursalState.nombre," id = ", sucursalState.id)
-          const mostrador = { id : { id : sucursalesState.id} , mostradores : {
+          const idsucursal = sucursalState.id
+          const mostrador = { id : idsucursal ,
+                              mostradores : {
                                 clave : claveState, nombre : nombreState, tipo_servicio : tiposervicioState,
                                 activo : activoState}            
           }
@@ -87,6 +89,7 @@ function Mostrador({obtenerSucursales,sucursalesState,sucursalState, obtenerServ
                             {sucursalState!==undefined?
                           sucursalState.servicios!==null?
                           <>
+                          <option>Seleccione el tipo de servicio</option> 
                             {sucursalState.servicios.map((servicio)=>{
                               return ( 
                               <option>{servicio.tipo_servicio}</option>  )
