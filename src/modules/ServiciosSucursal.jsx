@@ -4,40 +4,8 @@ import React, { useRef, useState } from 'react';
 import { MDBBtn } from 'mdb-react-ui-kit';
 import Menu from './Menu';
 
-const ServiciosSucursal = ({obtenerSucursales,sucursalesState,obtenerServicios,serviciosSucursalState}) => {
-
-
-  const [sucursalState,setsucursalState]=useState(undefined)
-  const handlesucursal = (e) =>{
-    const sucursalencontrada= sucursalesState.find((sucursal)=>sucursal.id===e.target.value)
-    console.log("\\\\\\\\\\\\\\\\\\\\",sucursalencontrada)
-    sucursalencontrada.servicios ===null ? 
-    setserviciosmostradosState(serviciosSucursalState) :
-    setserviciosmostradosState(filtrarservicios(serviciosSucursalState,sucursalencontrada.servicios))
-    setsucursalState(sucursalencontrada)
-    console.log("----------------------")
-    console.log(filtrarservicios(serviciosSucursalState,sucursalencontrada.servicios))
-  }
-  const filtrarservicios = (array,filter)=>{
-    const filtrado = array.map((servicio)=>{
-      let flag=false
-      for(let i=0; i<filter.length;i++){
-        if(filter[i].id===servicio.id){
-          flag=true
-          break;
-        }
-      }
-      if(flag===false){
-        return servicio
-      }
-    })
-      const filtrado2 = filtrado.filter((servicio)=>servicio!==undefined)
-      return filtrado2
-  } 
-  const [serviciosmostradosState,setserviciosmostradosState]=useState([])
-  const handleserviciosmostrados =(e)=>{
-
-  }
+const ServiciosSucursal = ({obtenerSucursales,sucursalesState,obtenerServicios,serviciosSucursalState,
+                            handlesucursal,sucursalState,serviciosmostradosState }) => {
 
   const [servicioactualState,setservicioactualState]=useState("")
   const handleservicioactual = (e) =>{
@@ -48,9 +16,6 @@ const ServiciosSucursal = ({obtenerSucursales,sucursalesState,obtenerServicios,s
     handlesucursal(e)
   }
   
-  
-
- 
 
   const agregarServicio = async (event) =>{
      const agregarservicio = { sucursal : { id : sucursalState.id}, 

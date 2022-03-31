@@ -3,7 +3,7 @@ import { MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow } from 'mdbreact';
 import React, { useState } from 'react'
 import Menu from './Menu';
 
-function Mostrador({obtenerSucursales,sucursalesState,obtenerServicios,serviciosSucursalState}) {
+function Mostrador({obtenerSucursales,sucursalesState,sucursalState, obtenerServicios, handlesucursal}) {
 
     
 
@@ -16,8 +16,8 @@ function Mostrador({obtenerSucursales,sucursalesState,obtenerServicios,servicios
         setnombreState(e)
     }
     const [tiposervicioState,settiposervicioState]=useState("")
-    const handletiposervicio = (e) => {
-        settiposervicioState(e)        
+    const handletiposervicio = (e) =>{       
+         settiposervicioState(e.target.value)
     }
     
   const [activoState,setactivoState]=useState("")
@@ -26,15 +26,17 @@ function Mostrador({obtenerSucursales,sucursalesState,obtenerServicios,servicios
       console.log(e.target.value)
 
   }
-  const [serviciosScucursalState,setserviciosScucursalState]=useState("")
-  const handleserviciosScucursal = (e) =>{
-    setserviciosScucursalState(e)
+
+  const handledatos = (e)=>{
+    
+    obtenerServicios(e);
+    handlesucursal(e)
   }
-  
 
 
 
       const agregarMostrador = async () => {
+          console.log("sucursal elegida = ",sucursalState.nombre," id = ", sucursalState.id)
           const mostrador = { id : { id : sucursalesState.id} , mostradores : {
                                 clave : claveState, nombre : nombreState, tipo_servicio : tiposervicioState,
                                 activo : activoState}            
@@ -61,7 +63,7 @@ function Mostrador({obtenerSucursales,sucursalesState,obtenerServicios,servicios
                 <form>
                 <div className="grey-text">
                 <label className="col-sm-2 control-label" ><h1>Sucursales</h1></label>
-                         <select className='custom-select mb-5' name="estado" id="select-sucursal"  onClick={obtenerSucursales}>
+                         <select className='custom-select mb-5' name="estado" id="select-sucursal"   onClick={obtenerSucursales}  onChange={handledatos}>
                             { sucursalesState.length>0?
                             <>                            
                             {                              
@@ -81,12 +83,27 @@ function Mostrador({obtenerSucursales,sucursalesState,obtenerServicios,servicios
                         <MDBInput   getValue={handleNombre} type='text'/>
                     <MDBIcon icon="tasks" />
                         <label className="col-sm-2 control-label">Tipo de Servicio</label>                   
-                            <select className='custom-select mb-5'  name="colonia"  onClick={handleserviciosScucursal} onChange={handletiposervicio}> 
-                          
+                            <select className='custom-select mb-5'  name="colonia"   onChange={handletiposervicio}> 
+                            {sucursalState!==undefined?
+                          sucursalState.servicios!==null?
+                          <>
+                            {sucursalState.servicios.map((servicio)=>{
+                              return ( 
+                              <option>{servicio.tipo_servicio}</option>  )
+                            })
+                              
+                            }
+                          </>:
+                          <>
+                          <option>Seleccione el tipo de servicio</option> 
+                          </>
+                          :<></>
+                          }
                             </select>
                     <MDBIcon icon="clipboard-check" />
                         <label className="col-sm-2 control-label">Activo</label>                   
-                            <select className='custom-select mb-5'  name="colonia"  onChange={handleactivo}> 
+                            <select className='custom-select mb-5'  name="colonia"  onChange={handleactivo} > 
+                            <option >Seleccione una opción</option>
                                 <option value={true}>Activo</option>
                                 <option value={false}>Inactivo</option>
                             </select>

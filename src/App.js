@@ -18,7 +18,7 @@ function App() {
     }) 
     const responseJson = await response.json()
       setsucursalesState(responseJson)
-      console.log("******************",responseJson)
+    //  console.log("******************",responseJson)
   }
   const [serviciosSucursalState,setserviciosSucursalState]=useState([])
   const obtenerServicios = async () =>{
@@ -30,9 +30,41 @@ function App() {
     cache: 'default',
     })
     const responseJson = await response.json()
-    setserviciosSucursalState(responseJson) 
-    
+    setserviciosSucursalState(responseJson)     
   }
+
+  const [sucursalState,setsucursalState]=useState(undefined)
+  const handlesucursal = (e) =>{
+    const sucursalencontrada= sucursalesState.find((sucursal)=>sucursal.id===e.target.value)
+    //console.log("\\\\\\\\\\\\\\\\\\\\",sucursalencontrada)
+    sucursalencontrada.servicios ===null ? 
+    setserviciosmostradosState(serviciosSucursalState) :
+    setserviciosmostradosState(filtrarservicios(serviciosSucursalState,sucursalencontrada.servicios))
+    setsucursalState(sucursalencontrada)
+  console.log("----------------------")
+    console.log(filtrarservicios(serviciosSucursalState,sucursalencontrada.servicios))
+  }
+  const filtrarservicios = (array,filter)=>{
+    const filtrado = array.map((servicio)=>{
+      let flag=false
+      for(let i=0; i<filter.length;i++){
+        if(filter[i].id===servicio.id){
+          flag=true
+          break;
+        }
+      }
+      if(flag===false){
+        return servicio
+      }
+    })
+      const filtrado2 = filtrado.filter((servicio)=>servicio!==undefined)
+      return filtrado2
+      
+  } 
+  const [serviciosmostradosState,setserviciosmostradosState]=useState([])
+
+  
+
     return ( 
       <>
       <Router>
@@ -43,9 +75,12 @@ function App() {
           <Route path="/registrarservicio" element={<Servicios/>}/>
           <Route path="/registrarserviciosucursal" element={<ServiciosSucursal 
           obtenerSucursales={obtenerSucursales} sucursalesState={sucursalesState}
-          obtenerServicios={obtenerServicios} serviciosSucursalState={serviciosSucursalState}/>}/>
+          obtenerServicios={obtenerServicios} serviciosSucursalState={serviciosSucursalState}
+          sucursalState={sucursalState} handlesucursal={handlesucursal} serviciosmostradosState={serviciosmostradosState}
+          />}/>
           <Route path="/mostrador" element={<Mostrador 
           obtenerSucursales={obtenerSucursales} sucursalesState={sucursalesState}
+          sucursalState ={sucursalState} handlesucursal={handlesucursal}
           obtenerServicios={obtenerServicios} serviciosSucursalState={serviciosSucursalState}/>}/>
         </Routes>
       </Router>
