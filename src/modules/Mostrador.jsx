@@ -39,18 +39,18 @@ function Mostrador({obtenerSucursales,sucursalesState,sucursalState, obtenerServ
           console.log("sucursal elegida = ",sucursalState.nombre," id = ", sucursalState.id)
           const idsucursal = sucursalState.id
           const mostrador = { id : idsucursal ,
-                              mostradores : {
+                              mostradores : [{
                                 clave : claveState, nombre : nombreState, tipo_servicio : tiposervicioState,
-                                activo : activoState}            
+                                activo : activoState}]
           }
           const bodyJson = JSON.stringify(mostrador)
           console.log(bodyJson)
-          const reponse = await fetch("http://192.168.200.214:8080/gestor/api/addmostrador",{
-            headers : { 'Content-Type': 'application/json' },
+          const reponse = await fetch("http://192.168.200.216:8084/gestor/api/addmostrador",{
+            headers : { 'Content-Type': 'application/json'},
             method: 'POST',
             mode: 'cors', // 
             body : bodyJson,
-            cache: 'default',
+            cache: 'default',            
           })
           const responseJson = await reponse.json()
     console.log(responseJson);
