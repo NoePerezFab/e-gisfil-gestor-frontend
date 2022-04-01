@@ -58,7 +58,7 @@ function Mostrador({obtenerSucursales,sucursalesState,sucursalState, obtenerServ
 
     return (
     <>
-    <Menu/>
+    <Menu />
     <MDBContainer className='h-100 mt-5'>
             <MDBRow className='h-100 d-flex justify-content-center align-items-center ml-5'>
                 <MDBCol>
@@ -111,7 +111,7 @@ function Mostrador({obtenerSucursales,sucursalesState,sucursalState, obtenerServ
                                 <option value={false}>Inactivo</option>
                             </select>
                     <div className="d-flex justify-content-center align-items-center flex-column mt-5 ">
-                        <button type="button" onClick={agregarMostrador} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"3rem"}}  >Agregar Mostrador</button>     
+                        <button type="button" onClick={agregarMostrador} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"rem"}}  >Agregar Mostrador</button>     
                     </div> 
                 </div>
                 </form>

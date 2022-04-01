@@ -112,7 +112,7 @@ const Servicios = () => {
                         <MDBInput   type='number' getValue={handleTiempo}></MDBInput>
                     </div>     
                     <div className="d-flex justify-content-center align-items-center flex-column mt-5 ">
-                        <button type="button" onClick={agregarServicio} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"3rem"}}  >Agregar Servicio</button>     
+                        <button type="button" onClick={agregarServicio} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"rem"}}  >Agregar Servicio</button>     
                     </div>
                     </form>
                 </MDBCol>

@@ -244,7 +244,7 @@ const agregarCodigoPostal = async () =>{
                         <label className="col-sm-2 control-label"><MDBIcon icon="hashtag"/> Ind_llamado</label>
                         <MDBInput valueDefault={"1"} getValue={handleindllamado} type='text'/>  
                     <div className="d-flex justify-content-center align-items-center flex-column mt-5 ">
-                        <button type="button" onClick={agregarSucursal} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"3rem"}}  >Agregar Sucursal</button>     
+                        <button type="button" onClick={agregarSucursal} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"rem"}}  >Agregar Sucursal</button>     
                     </div>
                     </div>
                     </form>
