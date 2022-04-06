@@ -90,10 +90,10 @@ const Sucursal = () => {
                             },
                             telefono : metadatos, ind_llamado : indllamadoState,  
                          }
-        console.log(sucursal)
+
         const bodyJson = JSON.stringify(sucursal)
-        console.log(bodyJson)
-        const response = await fetch('http://192.168.200.216:8084/gestor/api/addsucursal',{ 
+
+        const response = await fetch('../../../gestor/api/addsucursal',{ 
             headers : { 'Content-Type': 'application/json' },
             method: 'POST',
             mode: 'cors', 
@@ -101,7 +101,7 @@ const Sucursal = () => {
             cache: 'default',
           })
         const responseJson = await response.json()
-        console.log(responseJson);
+
         
         clearInterval(intervalRef.current)
         setred(true)
@@ -112,10 +112,8 @@ let  estado,municipio,colonia,selectColonia,selectestado,selectmunicipio;
 const agregarCodigoPostal = async () =>{
     setspinnerState(true);
     const codigopostal = { cp : codigoPostalState }
-
     const bodyJson = JSON.stringify(codigopostal)
-    console.log(bodyJson)
-    const response = await fetch('http://192.168.200.216:8084/gestor/api/getcolonia',{ 
+    const response = await fetch('../../../gestor/api/getcolonia',{ 
         headers : { 'Content-Type': 'application/json' },
         method: 'POST',
         mode: 'cors', // 
@@ -123,7 +121,7 @@ const agregarCodigoPostal = async () =>{
         cache: 'default',
       })
     const responseJson = await response.json()
-    console.log(responseJson);
+
     
     estado = responseJson.map((estados) => {
       return estados.estado
@@ -140,7 +138,7 @@ const agregarCodigoPostal = async () =>{
     setestadoState (estado);
     setmunicipioState(municipio);
     setcoloniaState(colonia);
-    console.log("sdfaf",coloniaEnvio)
+ 
     clearInterval(intervalRef.current)
     setred(true)
 
@@ -170,7 +168,7 @@ const agregarCodigoPostal = async () =>{
   return (
     <>
     <Menu/>
-    <MDBContainer className='h-100 mt-5'>
+    <MDBContainer className='h-100 mt-5 pt-5'>
             <MDBRow className='h-100 d-flex justify-content-center align-items-center ml-5'>
                 <MDBCol >
                     <form >                     
@@ -244,7 +242,7 @@ const agregarCodigoPostal = async () =>{
                         <label className="col-sm-2 control-label"><MDBIcon icon="hashtag"/> Ind_llamado</label>
                         <MDBInput valueDefault={"1"} getValue={handleindllamado} type='text'/>  
                     <div className="d-flex justify-content-center align-items-center flex-column mt-5 ">
-                        <button type="button" onClick={agregarSucursal} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"rem"}}  >Agregar Sucursal</button>     
+                        <button type="button" onClick={agregarSucursal} className="btn btn-lg " style={{background:"#0D7E61",color:"white",fontSize:"1.4rem"}}  >Agregar Sucursal</button>     
                     </div>
                     </div>
                     </form>

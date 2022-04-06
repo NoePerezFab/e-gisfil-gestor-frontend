@@ -10,9 +10,9 @@ const Menu = () => {
 
 
     return (
-        <header className=''  >
+        <header   className='fixed-top'>
            <nav  className="navbar navbar-expand-lg navbar-dark  bg-primary "  >
-            <div className="container-fluid d-flex  align-items-end" >
+            <div className="container-fluid d-flex  align-items-end " >
                 <img src={gisnetLogo} alt="Logo" width="50" height="50" className="d-inline-block align-text-top mr-1" />
                 <h2 className="mr-auto  ml-2">e-GISfil</h2>   
                 <ul className='navbar-nav ml-auto'>

@@ -1,31 +1,25 @@
 import { calculateNewValue } from '@testing-library/user-event/dist/utils';
 import { MDBCol, MDBContainer, MDBIcon, MDBRow, MDBTabContent, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MDBBtn } from 'mdb-react-ui-kit';
 import Menu from './Menu';
 
-const ServiciosSucursal = ({obtenerSucursales,sucursalesState,obtenerServicios,serviciosSucursalState,
+const ServiciosSucursal = ({obtenerSucursales,sucursalesState,obtenerServicios,
                             handlesucursal,sucursalState,serviciosmostradosState }) => {
 
-  const [servicioactualState,setservicioactualState]=useState("")
-  const handleservicioactual = (e) =>{
-    setservicioactualState(e)
-  }
-  const handledatos = (e)=>{
-    obtenerServicios(e);
-    handlesucursal(e)
-  }
+ 
   
-
+  useEffect(() => {
+    obtenerSucursales()
+    obtenerServicios()
+  }, [])
+  
   const agregarServicio = async (event) =>{
      const agregarservicio = { sucursal : { id : sucursalState.id}, 
                                servicio : { id : event.currentTarget.dataset.index},                    
                              }
-    console.log(agregarservicio)
-    console.log(event)
     const bodyJson = JSON.stringify(agregarservicio)
-    console.log(bodyJson)
-    const response = await fetch('http://192.168.200.216:8084/gestor/api/addserviciosucursal',{ 
+    const response = await fetch('../../../gestor/api/addserviciosucursal',{ 
         headers : { 'Content-Type': 'application/json' },
         method: 'POST',
         mode: 'cors', 
@@ -33,9 +27,9 @@ const ServiciosSucursal = ({obtenerSucursales,sucursalesState,obtenerServicios,s
         cache: 'default',
       })
       const responseJson = await response.json()
-      console.log(responseJson)
       await obtenerSucursales()
       handlesucursal({target : { value : sucursalState.id}})
+      
     }
   
  
@@ -43,12 +37,12 @@ const ServiciosSucursal = ({obtenerSucursales,sucursalesState,obtenerServicios,s
     
     <>
       <Menu/>
-      <MDBContainer className='h-100 mt-5'>
+      <MDBContainer className='h-100 mt-5 pt-5'>
             <MDBRow className='h-100 d-flex justify-content-center align-items-center ml-5'>
                 <MDBCol >
                     <form >
                     <label className="col-sm-2 control-label" ><h1>Sucursales</h1></label>
-                         <select className='custom-select mb-5' name="estado" id="select-sucursal" onClick={obtenerSucursales} onChange={handledatos}>
+                         <select className='custom-select mb-5' name="estado" id="select-sucursal" onInput={handlesucursal}>
                             { sucursalesState.length>0?
                             <>                            
                             {                              

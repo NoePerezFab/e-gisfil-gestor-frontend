@@ -48,10 +48,8 @@ const Servicios = () => {
         const servicio = { clave : claveState, nombre : nombreState, prioridad : prioridadState,
                          tipo_servicio : tiposervicioState, servicio_cliente : servicioclienteState,
                          ponderacion : ponderacionState, tiempo_maximo_espera : tiempoState}
-        console.log(servicio)
         const bodyJson = JSON.stringify(servicio)
-        console.log(bodyJson)
-        const response = await fetch('http://192.168.200.216:8084/gestor/api/addservicio',{ 
+        const response = await fetch('../../../gestor/api/addservicio',{ 
             headers : { 'Content-Type': 'application/json' },
             method: 'POST',
             mode: 'cors', // 
@@ -59,7 +57,6 @@ const Servicios = () => {
             cache: 'default',
           })
         const responseJson = await response.json()
-        console.log(responseJson);
 
     clearInterval(intervalRef.current)
     setred(true)
@@ -67,7 +64,7 @@ const Servicios = () => {
   return (
     <>
     <Menu/>
-        <MDBContainer className='h-100 mt-5'>
+        <MDBContainer className='h-100 mt-5 pt-5'>
             <MDBRow className='h-100 d-flex justify-content-center align-items-center ml-5'>
                 <MDBCol >
                     <form >                    
@@ -112,7 +109,7 @@ const Servicios = () => {
                         <MDBInput   type='number' getValue={handleTiempo}></MDBInput>
                     </div>     
                     <div className="d-flex justify-content-center align-items-center flex-column mt-5 ">
-                        <button type="button" onClick={agregarServicio} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"rem"}}  >Agregar Servicio</button>     
+                        <button type="button" onClick={agregarServicio} className="btn-default btn Ripple-parent" style={{background:"#0D7E61",color:"white",fontSize:"1.4rem"}}  >Agregar Servicio</button>     
                     </div>
                     </form>
                 </MDBCol>

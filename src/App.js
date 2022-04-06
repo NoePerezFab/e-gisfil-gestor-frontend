@@ -9,7 +9,7 @@ import Sucursal from "./modules/Sucursal";
 function App() {
   const [sucursalesState,setsucursalesState]=useState([])
   const obtenerSucursales = async () => {
-    const response = await fetch('http://192.168.200.216:8084/gestor/api/sucursales',{
+    const response = await fetch('../gestor/api/sucursales',{
       headers : { 'Content-Type': 'application/json' },
       method: 'GET',
       mode: 'cors', 
@@ -18,11 +18,10 @@ function App() {
     }) 
     const responseJson = await response.json()
       setsucursalesState(responseJson)
-    //  console.log("******************",responseJson)
   }
   const [serviciosSucursalState,setserviciosSucursalState]=useState([])
   const obtenerServicios = async () =>{
-    const response = await fetch('http://192.168.200.216:8084/gestor/api/servicios',{
+    const response = await fetch('../gestor/api/servicios',{
       headers : { 'Content-Type': 'application/json' },
     method: 'GET',
     mode: 'cors', 
@@ -30,19 +29,17 @@ function App() {
     cache: 'default',
     })
     const responseJson = await response.json()
-    setserviciosSucursalState(responseJson)     
+    setserviciosSucursalState(responseJson)   
   }
 
   const [sucursalState,setsucursalState]=useState(undefined)
-  const handlesucursal = (e) =>{
+  const handlesucursal = async (e) =>{
+    await obtenerServicios()
     const sucursalencontrada= sucursalesState.find((sucursal)=>sucursal.id===e.target.value)
-    //console.log("\\\\\\\\\\\\\\\\\\\\",sucursalencontrada)
     sucursalencontrada.servicios ===null ? 
     setserviciosmostradosState(serviciosSucursalState) :
     setserviciosmostradosState(filtrarservicios(serviciosSucursalState,sucursalencontrada.servicios))
     setsucursalState(sucursalencontrada)
-  console.log("----------------------")
-    console.log(filtrarservicios(serviciosSucursalState,sucursalencontrada.servicios))
   }
   const filtrarservicios = (array,filter)=>{
     const filtrado = array.map((servicio)=>{
